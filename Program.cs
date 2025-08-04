@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using backend_ont_2.features.user.repositories;
 using backend_ont_2.features.user.service;
 using backend_ont_2.features.user.service.auth;
+//using backend_ont_2.shared.apiResponse;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +49,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
-
+//builder.Services.AddScoped<ApiResponseService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
