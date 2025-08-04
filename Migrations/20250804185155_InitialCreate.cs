@@ -57,7 +57,7 @@ namespace backend_ont_2.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Role = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Department = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),

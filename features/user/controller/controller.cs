@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using backend_ont_2.data;
 using backend_ont_2.features.user.dto;
 using backend_ont_2.model;
-
+/*
 namespace backend_ont_2.features.user.controller
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("user/")]
     public class UsersController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -17,6 +17,9 @@ namespace backend_ont_2.features.user.controller
         {
             _context = context;
         }
+        
+
+
 
         // 🔹 GET: api/user - Listar todos
         [HttpGet]
@@ -73,7 +76,7 @@ namespace backend_ont_2.features.user.controller
 
         // 🔹 POST: api/user - Crear usuario
         [HttpPost]
-        public async Task<ActionResult<UserDto>> PostUser(UserCreateDto createDto)
+        public async Task<ActionResult<UserDto>> CreateUser(UserCreateDto createDto)
         {
             if (!ModelState.IsValid)
             {
@@ -91,13 +94,11 @@ namespace backend_ont_2.features.user.controller
                 password: createDto.Password, // ⚠️ En producción: hashear
                 name: createDto.Name,
                 department: createDto.Department,
-                role: createDto.Role
-            )
-            {
-                Position = createDto.Position,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
+                role: createDto.Role,
+                position: createDto.Position,
+                createdAt: DateTime.UtcNow,
+                updatedAt: DateTime.UtcNow
+            );
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -185,4 +186,4 @@ namespace backend_ont_2.features.user.controller
             return _context.Users.Any(e => e.Id == id);
         }
     }
-}
+}*/

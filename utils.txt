@@ -1,0 +1,94 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace backend_ont_2.features.dto
+{
+    public class UsuarioCreateDto
+    {
+        [Required(ErrorMessage = "El correo es obligatorio.")]
+        [EmailAddress(ErrorMessage = "El formato del correo no es válido.")]
+        [StringLength(100, ErrorMessage = "El correo no puede exceder 100 caracteres.")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "La contraseña es obligatoria.")]
+        [MinLength(6, ErrorMessage = "La contraseña debe tener al menos 6 caracteres.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$",
+            ErrorMessage = "La contraseña debe tener al menos una mayúscula, una minúscula y un número.")]
+        public string Password { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "El nombre debe tener entre 2 y 100 caracteres.")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "El departamento es obligatorio.")]
+        [StringLength(100)]
+        public string Department { get; set; } = string.Empty;
+
+        [RegularExpression("^(USER|ADMIN|MODERATOR)$", ErrorMessage = "Rol no permitido.")]
+        public string Role { get; set; } = "USER";
+
+        [Phone(ErrorMessage = "El teléfono no es válido.")]
+        public string? Phone { get; set; }
+
+        [Url(ErrorMessage = "La URL del perfil no es válida.")]
+        public string? ProfileUrl { get; set; }
+
+        [Range(18, 100, ErrorMessage = "La edad debe estar entre {1} y {2}.")]
+        public int Age { get; set; }
+
+        [MinimumAge(18, ErrorMessage = "Debe ser mayor de edad.")]
+        public DateTime FechaNacimiento { get; set; }
+
+        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+
+        [MinLength(1, ErrorMessage = "Debe seleccionar al menos un permiso.")]
+        public List<int> PermissionIds { get; set; } = new();
+    }
+}
+
+
+
+
+
+[Phone(ErrorMessage = "El número de teléfono no es válido.")]
+public string Telefono { get; set; } = string.Empty;
+
+[RegularExpression(@"^\d{8,15}$", 
+    ErrorMessage = "El número de teléfono debe tener entre 8 y 15 dígitos.")]
+public string Telefono { get; set; } = string.Empty;
+
+[RegularExpression(@"^(USER|ADMIN|MODERATOR)$", 
+    ErrorMessage = "El rol '{0}' no es válido. Valores permitidos: USER, ADMIN, MODERATOR.")]
+public string Rol { get; set; } = "USER";
+
+
+
+public class RegistroDto
+{
+    [Required(ErrorMessage = "El correo es obligatorio.")]
+    [EmailAddress]
+    public string Email { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "La contraseña es obligatoria.")]
+    [MinLength(6)]
+    public string Password { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "Confirma tu contraseña.")]
+    [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+    public string ConfirmPassword { get; set; } = string.Empty;
+}
+
+{
+  "Email": "user@example.com",
+  "Password": "MiPass123",
+  "ConfirmPassword": "MiPass123"  // ← igual → válido
+}
+
+
+
+
+
+
+
+
+

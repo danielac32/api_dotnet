@@ -11,7 +11,7 @@ using backend_ont_2.data;
 namespace backend_ont_2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250801173752_InitialCreate")]
+    [Migration("20250804185155_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -430,6 +430,7 @@ namespace backend_ont_2.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Position")

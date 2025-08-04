@@ -73,6 +73,8 @@ installdb:
 
 deletedb:
 		rm -rf Migrations
+		rm app.db
+
 migrate:
 	dotnet ef migrations add InitialCreate
 	dotnet ef database update

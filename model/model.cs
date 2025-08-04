@@ -109,6 +109,7 @@ namespace backend_ont_2.model  // o namespace backend_ont.data (dependiendo de l
 
         [Required]
         [JsonIgnore]
+        [StringLength(255)]
         public string Password { get; set; }
 
         [Required]
@@ -145,19 +146,29 @@ namespace backend_ont_2.model  // o namespace backend_ont.data (dependiendo de l
         public MetaDato? MetaDato { get; set; }
 
 // ✅ Constructor sin parámetros (para EF Core)
-        protected User()
+        public User()
         {
             // EF Core lo usa para crear instancias
             // No hacer nada aquí, las propiedades se asignan después
         }
-        public User(string email, string password, string name, string department,string role)
+        public User(string email, string password, string name, string department, string role, string position, DateTime createdAt, DateTime updatedAt){
+            Email = email;
+            Password = password;
+            Name = name;
+            Department = department;
+            Role = role;
+            Position = position;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+        }
+        /*public User(string email, string password, string name, string department,string role)
         {
             Email = email;
             Password = password;
             Name = name;
             Department = department;
             Role = role;
-        }
+        }*/
 
         public User CopyWith(string? email = null, string? password = null, string? name = null, 
                         string? role = null, string? department = null, bool? isActive = null,
@@ -201,7 +212,9 @@ namespace backend_ont_2.model  // o namespace backend_ont.data (dependiendo de l
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-        public Permission(string section) => Section = section;
+        public Permission() { }
+
+        //public Permission(string section) => Section = section;
 
         public Permission CopyWith(string? section = null, bool? canCreate = null, 
                                 bool? canEdit = null, bool? canDelete = null, 

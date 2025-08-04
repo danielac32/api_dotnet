@@ -427,6 +427,7 @@ namespace backend_ont_2.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Position")
