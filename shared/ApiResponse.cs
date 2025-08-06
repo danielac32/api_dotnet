@@ -1,118 +1,98 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+using System;
 
-/*
+
 namespace backend_ont_2.shared.apiResponse
 {
-   public class ApiResponseService 
+    public class ApiResponseService
     {
-        public class ApiResponse<T>
-        {
-            public int StatusCode { get; set; }
-            public bool Success { get; set; }
-            public string Message { get; set; }
-            public T Data { get; set; }
-            public object Errors { get; set; }
-        }
-
-    // Clase de servicio para manejar respuestas
-  
-        public IActionResult Success<T>(T data = default, string message = null)
-        {
-            var response = new ApiResponse<T>
-            {
-                StatusCode = (int)HttpStatusCode.OK,
-                Success = true,
-                Message = message ?? "Operación exitosa",
-                Data = data
-            };
-            return new OkObjectResult(response);
-        }
-
-        public IActionResult Created<T>(T data = default, string uri = null, string message = null)
-        {
-            var response = new ApiResponse<T>
-            {
-                StatusCode = (int)HttpStatusCode.Created,
-                Success = true,
-                Message = message ?? "Recurso creado exitosamente",
-                Data = data
-            };
-
-            return !string.IsNullOrEmpty(uri) 
-                ? new CreatedResult(uri, response) 
-                : new ObjectResult(response) { StatusCode = (int)HttpStatusCode.Created };
-        }
-
-        public IActionResult NoContent(string message = null)
-        {
-            var response = new ApiResponse<object>
-            {
-                StatusCode = (int)HttpStatusCode.NoContent,
-                Success = true,
-                Message = message ?? "Operación exitosa sin contenido"
-            };
-            return new NoContentResult();
-        }
-
-        public IActionResult Error(HttpStatusCode statusCode, string errorMessage, object details = null)
-        {
-            var response = new ApiResponse<object>
-            {
-                StatusCode = (int)statusCode,
-                Success = false,
-                Message = errorMessage,
-                Errors = details
-            };
-
-            return statusCode switch
-            {
-                HttpStatusCode.BadRequest => new BadRequestObjectResult(response),
-                HttpStatusCode.Unauthorized => new UnauthorizedObjectResult(response),
-                HttpStatusCode.Forbidden => new ObjectResult(response) { StatusCode = (int)HttpStatusCode.Forbidden },
-                HttpStatusCode.NotFound => new NotFoundObjectResult(response),
-                HttpStatusCode.Conflict => new ConflictObjectResult(response),
-                HttpStatusCode.UnprocessableEntity => new ObjectResult(response) { StatusCode = (int)HttpStatusCode.UnprocessableEntity },
-                _ => new ObjectResult(response) { StatusCode = (int)statusCode }
-            };
-        }
-
-        public async Task<IActionResult> ExecuteAsync(Func<Task<IActionResult>> action)
+        public async Task<IActionResult> Execute(Func<Task<IActionResult>> action)
         {
             try
             {
                 return await action();
             }
-            catch (ValidationException ex)
-            {
-                return Error(HttpStatusCode.BadRequest, "Error de validación", ex.Errors);
-            }
-            catch (NotFoundException ex)
-            {
-                return Error(HttpStatusCode.NotFound, ex.Message);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return Error(HttpStatusCode.Unauthorized, ex.Message);
-            }
-            catch (ForbiddenAccessException)
-            {
-                return Error(HttpStatusCode.Forbidden, "No tiene permisos para esta acción");
-            }
-            catch (ConflictException ex)
-            {
-                return Error(HttpStatusCode.Conflict, ex.Message);
-            }
             catch (Exception ex)
             {
-                // Log the exception here
-                return Error(HttpStatusCode.InternalServerError, "Error interno del servidor");
+                // Log del error (deberías implementar un logger aquí)
+                Console.WriteLine($"Error: {ex.Message}");
+
+                return new ObjectResult(new
+                {
+                    Success = false,
+                    Error = "Ocurrió un error interno",
+                    Details = ex.Message
+                })
+                {
+                    StatusCode = 500
+                };
             }
         }
+
+        public IActionResult OkResponse(object data = null, string message = "Operación exitosa")
+        {
+            return new OkObjectResult(new
+            {
+                Success = true,
+                Message = message,
+                Data = data
+            });
+        }
+
+        public IActionResult CreatedResponse(string actionName, object routeValues, object data)
+        {
+            return new CreatedAtActionResult(actionName, null, routeValues, data);
+        }
+
+        public IActionResult NoContentResponse()
+        {
+            return new NoContentResult();
+        }
+
+        public IActionResult BadRequestResponse(string error)
+        {
+            return new BadRequestObjectResult(new
+            {
+                Success = false,
+                Error = error
+            });
+        }
+
+        /*public IActionResult BadRequestResponse(ModelStateDictionary modelState)
+        {
+            return new BadRequestObjectResult(modelState);
+        }*/
+
+        public IActionResult UnauthorizedResponse()
+        {
+            return new UnauthorizedResult();
+        }
+
+        public IActionResult ForbidResponse()
+        {
+            return new ForbidResult();
+        }
+
+        public IActionResult NotFoundResponse(string message)
+        {
+            return new NotFoundObjectResult(new
+            {
+                Success = false,
+                Error = message
+            });
+        }
+
+        public IActionResult ConflictResponse(string message)
+        {
+            return new ConflictObjectResult(new
+            {
+                Success = false,
+                Error = message
+            });
+        }
     }
-    
 }
-*/
+ 
 
 /*
 
