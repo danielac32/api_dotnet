@@ -13,10 +13,13 @@ namespace backend_ont_2.features.user.service
             _userRepository = userRepository;
         }
 
-
-        public async Task<List<User>> getUserByFilter(string? role, string? department,string? status)
+        public async Task<User?> GetUserByIdOrEmailAsync(string identifier)
         {
-             if (!string.IsNullOrEmpty(role))
+            return await _userRepository.GetUserByIdOrEmailAsync(identifier);
+        }
+        public async Task<List<User>> getUserByFilter(string? role, string? department, string? status)
+        {
+            if (!string.IsNullOrEmpty(role))
                 return await _userRepository.GetByRoleAsync(role);
 
             if (!string.IsNullOrEmpty(department))

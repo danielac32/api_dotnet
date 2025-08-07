@@ -33,6 +33,25 @@ namespace backend_ont_2.features.user.repositories
         public async Task<User?> GetByIdAsync(int id) =>
             await _context.Users.FindAsync(id);
 
+
+        public async Task<User?> GetUserByIdOrEmailAsync(string identifier)
+        {
+            if (string.IsNullOrWhiteSpace(identifier))
+                throw new ArgumentException("El identificador no puede estar vacío");
+
+            // Verifica si el parámetro es un ID numérico
+            if (int.TryParse(identifier, out int userId))
+            {
+                return await _context.Users
+                    .FirstOrDefaultAsync(u => u.Id == userId);
+            }
+            // Si no es numérico, asume que es un Email (sin validar formato para mayor flexibilidad)
+            else
+            {
+                return await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == identifier);
+            }
+        }
         public async Task<User?> GetByEmailAsync(string email) =>
             await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
