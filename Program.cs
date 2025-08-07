@@ -9,7 +9,7 @@ using backend_ont_2.shared.apiResponse;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+ 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +44,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
-
  
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserService>();

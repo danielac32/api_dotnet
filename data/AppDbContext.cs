@@ -58,21 +58,21 @@ namespace backend_ont_2.data
                 .HasOne(o => o.Autor)
                 .WithMany(u => u.OrganismosGobernacion)
                 .HasForeignKey(o => o.AutorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configuración de Alcaldia
             modelBuilder.Entity<Alcaldia>()
                 .HasOne(a => a.Autor)
                 .WithMany(u => u.Alcaldias)
                 .HasForeignKey(a => a.AutorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configuración de ProgramacionFinanciera
             modelBuilder.Entity<ProgramacionFinanciera>()
                 .HasOne(p => p.Autor)
                 .WithMany(u => u.ProgramacionesFinancieras)
                 .HasForeignKey(p => p.AutorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProgramacionFinanciera>()
                 .HasMany(p => p.Meses)
@@ -85,14 +85,14 @@ namespace backend_ont_2.data
                 .HasOne(r => r.Autor)
                 .WithMany(u => u.ResumenesGestion)
                 .HasForeignKey(r => r.AutorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configuración de Noticia
             modelBuilder.Entity<Noticia>()
                 .HasOne(n => n.Autor)
                 .WithMany(u => u.Noticias)
                 .HasForeignKey(n => n.AutorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configuración para actualizar automáticamente UpdatedAt
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())

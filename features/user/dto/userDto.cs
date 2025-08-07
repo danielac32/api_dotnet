@@ -8,7 +8,7 @@ namespace backend_ont_2.features.user.dto
     {
         [Required(ErrorMessage = "El correo es obligatorio.")]
         [EmailAddress(ErrorMessage = "El formato del correo no es válido.")]
-        [StringLength(50, ErrorMessage = "El correo no puede exceder 100 caracteres.")]
+        [StringLength(50, ErrorMessage = "El correo no puede exceder 50 caracteres.")]
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "La contraseña es obligatorio.")]
@@ -22,7 +22,7 @@ namespace backend_ont_2.features.user.dto
     {
         [Required(ErrorMessage = "El correo es obligatorio.")]
         [EmailAddress(ErrorMessage = "El formato del correo no es válido.")]
-        [StringLength(50, ErrorMessage = "El correo no puede exceder 100 caracteres.")]
+        [StringLength(50, ErrorMessage = "El correo no puede exceder 50 caracteres.")]
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "La contraseña es obligatorio.")]
@@ -43,6 +43,8 @@ namespace backend_ont_2.features.user.dto
         public string Position { get; set; }
 
         public string? ProfileImage { get; set; }
+        
+        public bool? IsActive { get; set; }
     }
 
 

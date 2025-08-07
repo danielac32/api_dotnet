@@ -27,7 +27,7 @@ namespace backend_ont_2.features.user.repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync() =>
+        public async Task<List<User>> GetAllAsync() =>
             await _context.Users.ToListAsync();
 
         public async Task<User?> GetByIdAsync(int id) =>
@@ -36,7 +36,7 @@ namespace backend_ont_2.features.user.repositories
         public async Task<User?> GetByEmailAsync(string email) =>
             await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
-        public async Task<IEnumerable<User>> GetByActiveStatusAsync(string status)
+        public async Task<List<User>> GetByActiveStatusAsync(string status)
         {
             return status.ToLower() switch
             {
@@ -47,10 +47,10 @@ namespace backend_ont_2.features.user.repositories
             };
         }
 
-        public async Task<IEnumerable<User>> GetByRoleAsync(string role) =>
+        public async Task<List<User>> GetByRoleAsync(string role) =>
             await _context.Users.Where(u => u.Role == role).ToListAsync();
 
-        public async Task<IEnumerable<User>> GetByDepartmentAsync(string department) =>
+        public async Task<List<User>> GetByDepartmentAsync(string department) =>
             await _context.Users.Where(u => u.Department == department).ToListAsync();
 
         public async Task<int> CreateUserAsync(User user)

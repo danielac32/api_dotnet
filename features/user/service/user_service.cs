@@ -13,7 +13,22 @@ namespace backend_ont_2.features.user.service
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync() =>
+
+        public async Task<List<User>> getUserByFilter(string? role, string? department,string? status)
+        {
+             if (!string.IsNullOrEmpty(role))
+                return await _userRepository.GetByRoleAsync(role);
+
+            if (!string.IsNullOrEmpty(department))
+                return await _userRepository.GetByDepartmentAsync(department);
+
+            if (!string.IsNullOrEmpty(status))
+                return await _userRepository.GetByActiveStatusAsync(status);
+
+            return await _userRepository.GetAllAsync();
+        }
+        
+        public async Task<List<User>> GetAllAsync() =>
             await _userRepository.GetAllAsync();
 
         public async Task<User?> GetByIdAsync(int id) =>
@@ -22,10 +37,10 @@ namespace backend_ont_2.features.user.service
         public async Task<User?> GetByEmailAsync(string email) =>
             await _userRepository.GetByEmailAsync(email);
 
-        public async Task<IEnumerable<User>> GetByActiveStatusAsync(string status) =>
+        public async Task<List<User>> GetByActiveStatusAsync(string status) =>
             await _userRepository.GetByActiveStatusAsync(status);
 
-        public async Task<IEnumerable<User>> GetByRoleAsync(string role) =>
+        public async Task<List<User>> GetByRoleAsync(string role) =>
             await _userRepository.GetByRoleAsync(role);
 
         public async Task<int> CreateUserWithPermissionsAsync(User user)

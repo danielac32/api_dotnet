@@ -167,3 +167,5 @@
 /home/daniel/backend_ont_2/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
 /home/daniel/backend_ont_2/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
 /home/daniel/backend_ont_2/bin/Debug/net8.0/BCrypt.Net-Next.dll
+/home/daniel/backend_ont_2/bin/Debug/net8.0/AutoMapper.dll
+/home/daniel/backend_ont_2/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
