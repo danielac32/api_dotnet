@@ -462,7 +462,7 @@ namespace backend_ont_2.Migrations
                     b.HasOne("backend_ont_2.model.User", "Autor")
                         .WithMany("Alcaldias")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Autor");
@@ -501,7 +501,7 @@ namespace backend_ont_2.Migrations
                     b.HasOne("backend_ont_2.model.User", "Autor")
                         .WithMany("Noticias")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Autor");
@@ -512,7 +512,7 @@ namespace backend_ont_2.Migrations
                     b.HasOne("backend_ont_2.model.User", "Autor")
                         .WithMany("OrganismosGobernacion")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Autor");
@@ -534,7 +534,7 @@ namespace backend_ont_2.Migrations
                     b.HasOne("backend_ont_2.model.User", "Autor")
                         .WithMany("ProgramacionesFinancieras")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Autor");
@@ -545,7 +545,7 @@ namespace backend_ont_2.Migrations
                     b.HasOne("backend_ont_2.model.User", "Autor")
                         .WithMany("ResumenesGestion")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Autor");

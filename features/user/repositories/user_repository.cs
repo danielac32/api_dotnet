@@ -28,10 +28,25 @@ namespace backend_ont_2.features.user.repositories
         }
 
         public async Task<List<User>> GetAllAsync() =>
-            await _context.Users.ToListAsync();
+            await _context.Users
+                .Include(u => u.Permissions)
+                .Include(u => u.OrganismosGobernacion)
+                .Include(u => u.Alcaldias)
+                .Include(u => u.ProgramacionesFinancieras)
+                .Include(u => u.ResumenesGestion)
+                .Include(u => u.Noticias)
+                .Include(u => u.MetaDato).ToListAsync();
 
         public async Task<User?> GetByIdAsync(int id) =>
-            await _context.Users.FindAsync(id);
+            await _context.Users
+            .Include(u => u.Permissions)
+                .Include(u => u.OrganismosGobernacion)
+                .Include(u => u.Alcaldias)
+                .Include(u => u.ProgramacionesFinancieras)
+                .Include(u => u.ResumenesGestion)
+                .Include(u => u.Noticias)
+                .Include(u => u.MetaDato)
+                .FirstOrDefaultAsync(u => u.Id == id);//FindAsync(id);
 
 
         public async Task<User?> GetUserByIdOrEmailAsync(string identifier)
