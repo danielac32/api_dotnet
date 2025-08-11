@@ -57,14 +57,29 @@ namespace backend_ont_2.features.user.repositories
             // Verifica si el parámetro es un ID numérico
             if (int.TryParse(identifier, out int userId))
             {
-                return await _context.Users
-                    .FirstOrDefaultAsync(u => u.Id == userId);
+                /*return await _context.Users
+                    .FirstOrDefaultAsync(u => u.Id == userId);*/
+                return await _context.Users.Include(u => u.Permissions)
+                .Include(u => u.OrganismosGobernacion)
+                .Include(u => u.Alcaldias)
+                .Include(u => u.ProgramacionesFinancieras)
+                .Include(u => u.ResumenesGestion)
+                .Include(u => u.Noticias)
+                .Include(u => u.MetaDato)
+                .FirstOrDefaultAsync(u => u.Id == userId);///FindAsync(userId);
             }
             // Si no es numérico, asume que es un Email (sin validar formato para mayor flexibilidad)
             else
             {
-                return await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == identifier);
+                return await _context.Users.Include(u => u.Permissions)
+                .Include(u => u.OrganismosGobernacion)
+                .Include(u => u.Alcaldias)
+                .Include(u => u.ProgramacionesFinancieras)
+                .Include(u => u.ResumenesGestion)
+                .Include(u => u.Noticias)
+                .Include(u => u.MetaDato)
+                .FirstOrDefaultAsync(u => u.Email == identifier);
+                    //.FirstOrDefaultAsync(u => u.Email == identifier);
             }
         }
         public async Task<User?> GetByEmailAsync(string email) =>
@@ -132,6 +147,7 @@ namespace backend_ont_2.features.user.repositories
             }
         }
 
+
         public async Task<bool> DeleteUserAsync(int userId)
         {
             var user = await _context.Users.FindAsync(userId);
@@ -142,12 +158,43 @@ namespace backend_ont_2.features.user.repositories
             return true;
         }
 
+        public async Task<bool> UpdatePermissionAsync(Permission permission)
+        {
+            try
+            {
+                var existing = await _context.Permissions.FindAsync(permission.Id);
+                if (existing == null) return false;
+
+                // Actualizar campos
+                existing.Section = permission.Section;
+                existing.CanCreate = permission.CanCreate;
+                existing.CanEdit = permission.CanEdit;
+                existing.CanDelete = permission.CanDelete;
+                existing.CanPublish = permission.CanPublish;
+
+                existing.UpdatedAt = DateTime.UtcNow;
+
+                _context.Permissions.Update(existing);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         // 🔹 Gestión de permisos
         public async Task<List<Permission>> GetPermissionsByUserAsync(int userId)
         {
             return await _context.Permissions
                 .Where(p => p.UserId == userId)
                 .ToListAsync();
+        }
+
+        public async Task<Permission> GetPermissionById(int id)
+        {
+            return await _context.Permissions.FindAsync(id);//return await _context.Permissions.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<bool> AddPermissionToUserAsync(int userId, Permission permission)
@@ -286,5 +333,9 @@ namespace backend_ont_2.features.user.repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+       
+       
+        
     }
 }

@@ -47,6 +47,7 @@ clean:
 	dotnet clean
 	rm -rf $(PUBLISH_DIR)/
 	rm -rf ./bin ./obj
+	dotnet restore
 	@echo "✅ Limpieza completada."
 
 install:

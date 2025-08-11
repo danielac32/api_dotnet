@@ -5,6 +5,8 @@
 /home/daniel/backend_ont_2/bin/Release/net8.0/backend_ont_2.runtimeconfig.json
 /home/daniel/backend_ont_2/bin/Release/net8.0/backend_ont_2.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/backend_ont_2.pdb
+/home/daniel/backend_ont_2/bin/Release/net8.0/AutoMapper.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/BCrypt.Net-Next.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/Humanizer.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
@@ -44,6 +46,7 @@
 /home/daniel/backend_ont_2/bin/Release/net8.0/SQLitePCLRaw.batteries_v2.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/SQLitePCLRaw.core.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/SQLitePCLRaw.provider.e_sqlite3.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/Swashbuckle.AspNetCore.Annotations.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/Swashbuckle.AspNetCore.Swagger.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /home/daniel/backend_ont_2/bin/Release/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -167,5 +170,3 @@
 /home/daniel/backend_ont_2/obj/Release/net8.0/backend_ont_2.pdb
 /home/daniel/backend_ont_2/obj/Release/net8.0/backend_ont_2.genruntimeconfig.cache
 /home/daniel/backend_ont_2/obj/Release/net8.0/ref/backend_ont_2.dll
-/home/daniel/backend_ont_2/bin/Release/net8.0/AutoMapper.dll
-/home/daniel/backend_ont_2/bin/Release/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

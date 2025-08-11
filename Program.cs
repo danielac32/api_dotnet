@@ -64,10 +64,14 @@ app.UseAuthentication(); // ← Antes de UseAuthorization
 app.UseAuthorization();
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage(); // 🔥 Muestra errores detallados
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+    app.UseExceptionHandler("/error"); // producción
+}
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

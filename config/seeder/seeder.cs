@@ -192,7 +192,7 @@ namespace backend_ont_2.seeder
             };
 
             _context.Users.AddRange(superAdmin, superAdmin2, editor);
-            _context.SaveChangesAsync(); // Guardar para obtener IDs
+            await  _context.SaveChangesAsync(); // Guardar para obtener IDs
 // 5. Permisos para usuarios especiales
             var specialPermissions = new List<Permission>();
             foreach (var section in sections)
@@ -229,7 +229,7 @@ namespace backend_ont_2.seeder
             }
 
             _context.Permissions.AddRange(specialPermissions);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             // 6. Crear organismos (con autor superAdmin)
             var organismo1 = new OrganismoGobernacion("Ministerio de Hacienda", 100, 200, 300)
@@ -248,7 +248,7 @@ namespace backend_ont_2.seeder
             };
 
             _context.OrganismosGobernacion.AddRange(organismo1, organismo2, organismo3);
-            _context.SaveChangesAsync();
+           await  _context.SaveChangesAsync();
 
             // 7. Crear alcaldía
             var alcaldia1 = new Alcaldia("Alcaldía Central", 500, 600, 700)
@@ -257,7 +257,7 @@ namespace backend_ont_2.seeder
             };
 
             _context.Alcaldias.Add(alcaldia1);
-            _context.SaveChangesAsync();
+           await  _context.SaveChangesAsync();
 
             // 8. Crear programación financiera y meses
             var programacion1 = new ProgramacionFinanciera("Presupuesto Anual")
@@ -267,7 +267,7 @@ namespace backend_ont_2.seeder
             };
 
             _context.ProgramacionesFinancieras.Add(programacion1);
-            _context.SaveChangesAsync(); // Para obtener el ID
+           await  _context.SaveChangesAsync(); // Para obtener el ID
 
             var mes1 = new Mes("Enero", 1000000, "PRESUPUESTO_INICIAL")
             {
@@ -280,7 +280,7 @@ namespace backend_ont_2.seeder
             };
 
             _context.Meses.AddRange(mes1, mes2);
-            _context.SaveChangesAsync();
+           await  _context.SaveChangesAsync();
 
             // 9. Resumen de gestión
             var resumen1 = new ResumenGestion("Informe Trimestral", "Resultados del primer trimestre", "https://example.com/informe.jpg")
@@ -289,7 +289,7 @@ namespace backend_ont_2.seeder
             };
 
             _context.ResumenesGestion.Add(resumen1);
-            _context.SaveChangesAsync();
+           await  _context.SaveChangesAsync();
 
             // 10. Noticia
             var noticia1 = new Noticia("Nuevas iniciativas gubernamentales", "El gobierno anuncia nuevas medidas económicas...")
@@ -298,7 +298,7 @@ namespace backend_ont_2.seeder
             };
 
             _context.Noticias.Add(noticia1);
-            _context.SaveChangesAsync();
+           await  _context.SaveChangesAsync();
 
             Console.WriteLine("Seeder completado. Datos básicos creados.");
             return true;
