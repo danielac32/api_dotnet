@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using backend_ont_2.data;
 using backend_ont_2.model;
-
+using BCrypt.Net;
 namespace backend_ont_2.seeder
 {
     public class Seeder
@@ -101,7 +101,7 @@ namespace backend_ont_2.seeder
             {
                 var user = new User(
                     email: $"user{i + 1}@example.com",
-                    password: "123456",
+                    password : BCrypt.Net.BCrypt.HashPassword("123456"), 
                     name: names[i % names.Count],
                     department: departments[i % departments.Count],
                     role: roles[i % roles.Count],
@@ -155,7 +155,7 @@ namespace backend_ont_2.seeder
             var superAdmin = new User
             {
                 Email = "admin@example.com",
-                Password = "Admin123",
+                Password = BCrypt.Net.BCrypt.HashPassword("Admin123"),//Password = "Admin123",
                 Name = "Administrador Principal",
                 Role = AppStrings.SuperAdmin,
                 Department = AppStrings.DgAdministracion,
@@ -168,7 +168,7 @@ namespace backend_ont_2.seeder
             var superAdmin2 = new User
             {
                 Email = "daniel@gmail.com",
-                Password = "123456",
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"),//Password = "123456",
                 Name = "daniel quintero",
                 Role = AppStrings.SuperAdmin,
                 Department = AppStrings.DgTecnologiaInformacion,
@@ -181,7 +181,7 @@ namespace backend_ont_2.seeder
             var editor = new User
             {
                 Email = "editor@example.com",
-                Password = "Editor123",
+                 Password = BCrypt.Net.BCrypt.HashPassword("Admin123"),//
                 Name = "Editor General",
                 Role = AppStrings.Editor,
                 Department = "DGComunicacion", // Asegúrate que exista o cambia a uno válido

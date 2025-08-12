@@ -50,10 +50,10 @@ public static class AppStrings
     public static readonly List<string> Sections = new List<string>
     {
         Carrusel,
-        Alcaldias,
+        /*Alcaldias,
         Organismos,
         Gobernacion,
-        Noticias,
+        Noticias,*/
         ProgramacionFinanciera,
         ResumenGestion
         // Agrega más secciones según sea necesario

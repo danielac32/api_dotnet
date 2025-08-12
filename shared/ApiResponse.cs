@@ -53,7 +53,7 @@ namespace backend_ont_2.shared.apiResponse
         {
             return new BadRequestObjectResult(new
             {
-                Success = false,
+                //Success = false,
                 Error = error
             });
         }
@@ -77,7 +77,7 @@ namespace backend_ont_2.shared.apiResponse
         {
             return new NotFoundObjectResult(new
             {
-                Success = false,
+                //Success = false,
                 Error = message
             });
         }
@@ -86,7 +86,7 @@ namespace backend_ont_2.shared.apiResponse
         {
             return new ConflictObjectResult(new
             {
-                Success = false,
+                //Success = false,
                 Error = message
             });
         }

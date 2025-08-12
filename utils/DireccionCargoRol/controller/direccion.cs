@@ -46,8 +46,18 @@ namespace backend_ont_2.features.dcr.controller.Dir
             return await _apiResponseService.Execute(async () =>
             {
                 List<Direccion> dirs = await _direccion.GetAllDirecciones();
+                /*return _apiResponseService.OkResponse(new
+                {
+                    success = true,
+                    direcciones = dirs.Select(d => new { name = d.Name }).ToList()
+                });*/
+                var response = new
+                {
+                    success = true,
+                    direcciones = dirs.Select(d => new { name = d.Name }).ToList()
+                };
 
-                return _apiResponseService.OkResponse(data: dirs);
+                return Ok(response);
             });
         }
         [HttpGet("{id}")]

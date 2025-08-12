@@ -30,15 +30,6 @@ namespace backend_ont_2.features.user.controller.auth
         //[Authorize]
         public async Task<IActionResult> register(UserCreateDto createDto)
         {
-            /*if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _authService.RegisterAsync(createDto);
-
-            if (!result.Success)
-                return Conflict(new { message = result.Message }); // 409 si ya existe
-
-            return Ok(result); // 200 OK con { Success, User, Token, Message }*/
             return await _apiResponseService.Execute(async () =>
             {
                 if (!ModelState.IsValid)
@@ -49,7 +40,13 @@ namespace backend_ont_2.features.user.controller.auth
                 if (!result.Success)
                     return _apiResponseService.ConflictResponse(result.Message);
 
-                return _apiResponseService.OkResponse(result);
+                var res = new
+                {
+                    success = result.Success,
+                    message= "Usuario registrado exitosamente"
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(result);
             });
         }
 
@@ -67,11 +64,18 @@ namespace backend_ont_2.features.user.controller.auth
                 var result = await _authService.LoginAsync(loginDto.Email, loginDto.Password);
 
                 if (!result.Success)
-                    return Unauthorized(new { message = result.Message });
+                    return Unauthorized(new { error = result.Message });
 
-                return Ok(result);
+                var res = new
+                {
+                    success = result.Success,
+                    user = result.User,
+                    token= result.Token
+                };
+                return Ok(res);
 
             });
+            
             /*if (!ModelState.IsValid)
                         return BadRequest(ModelState);
                     var result = await _authService.LoginAsync(loginDto.Email, loginDto.Password);

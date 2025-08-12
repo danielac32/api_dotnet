@@ -11,7 +11,7 @@ using backend_ont_2.data;
 namespace backend_ont_2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250808191813_InitialCreate")]
+    [Migration("20250812193347_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -9,19 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
 
-namespace backend_ont_2.features.dcr.controller.Cargos
+namespace backend_ont_2.features.dcr.controller.Roles
 {
     [ApiController]
-    [Route("cargo/")]
-    public class CargoController : ControllerBase
+    [Route("role/")]
+    public class RolesController : ControllerBase
     {
 
-        private readonly DireccionCargoRolService _cargo;
+        private readonly DireccionCargoRolService _roles;
         private readonly ApiResponseService _apiResponseService;
 
-        public CargoController(DireccionCargoRolService direccionCargoRolService, ApiResponseService apiResponseService)
+        public RolesController(DireccionCargoRolService direccionCargoRolService, ApiResponseService apiResponseService)
         {
-            _cargo = direccionCargoRolService;
+            _roles = direccionCargoRolService;
             _apiResponseService = apiResponseService;
         }
 
@@ -30,14 +30,14 @@ namespace backend_ont_2.features.dcr.controller.Cargos
         public async Task<IActionResult> create([FromBody] NameDto dto) {
             return await _apiResponseService.Execute(async () =>
             {
-                if (await _cargo.CargoExists(dto.name))
-                    return _apiResponseService.ConflictResponse("El cargo ya existe");
+                if (await _roles.RoleExists(dto.name))
+                    return _apiResponseService.ConflictResponse("El rol ya existe");
 
-                var cargo = new Cargo(dto.name);
-                bool created = await _cargo.CreateCargo(cargo);
+                var rol = new Role(dto.name);
+                bool created = await _roles.CreateRole(rol);
 
                 return created
-                    ? _apiResponseService.OkResponse(null, "Cargo registrado exitosamente")
+                    ? _apiResponseService.OkResponse(null, "Rol registrado exitosamente")
                     : _apiResponseService.BadRequestResponse("Error al registrar");
             });
         }
@@ -46,9 +46,9 @@ namespace backend_ont_2.features.dcr.controller.Cargos
         public async Task<IActionResult> list() {
             return await _apiResponseService.Execute(async () =>
             {
-                List<Cargo> cargos = await _cargo.GetAllCargos();
+                List<Role> roles = await _roles.GetAllRoles();
 
-                return _apiResponseService.OkResponse(data: cargos);
+                return _apiResponseService.OkResponse(data: roles);
             });
         }
         [HttpGet("{id}")]
@@ -59,11 +59,11 @@ namespace backend_ont_2.features.dcr.controller.Cargos
                 {
                     return _apiResponseService.BadRequestResponse("El identificador no puede estar vacío");
                 }
-                Cargo cargo = await _cargo.GetCargoById(id);
+                Role rol = await _roles.GetRoleById(id);
 
-                if (cargo == null)
-                    return _apiResponseService.NotFoundResponse("Cargo no encontrada");
-                return _apiResponseService.OkResponse(data: cargo);
+                if (rol == null)
+                    return _apiResponseService.NotFoundResponse("Rol no encontrada");
+                return _apiResponseService.OkResponse(data: rol);
             });
         }
         [HttpPatch("{id}")]
@@ -74,13 +74,13 @@ namespace backend_ont_2.features.dcr.controller.Cargos
                 {
                     return _apiResponseService.BadRequestResponse("El identificador no puede estar vacío");
                 }
-                Cargo cargo = await _cargo.GetCargoById(id);
+                Role rol = await _roles.GetRoleById(id);
 
-                if (cargo == null)
-                    return _apiResponseService.NotFoundResponse("Cargo no encontrada");
+                if (rol == null)
+                    return _apiResponseService.NotFoundResponse("Rol no encontrada");
 
-                cargo.Name = dto.name;
-                var updatedCargo = await _cargo.UpdateCargo(cargo);
+                rol.Name = dto.name;
+                var updatedCargo = await _roles.UpdateRole(rol);
 
                 return _apiResponseService.OkResponse(data: updatedCargo);
             });     
@@ -93,15 +93,15 @@ namespace backend_ont_2.features.dcr.controller.Cargos
                 {
                     return _apiResponseService.BadRequestResponse("El identificador no puede estar vacío");
                 }
-                Cargo cargo = await _cargo.GetCargoById(id);
+                Role rol = await _roles.GetRoleById(id);
 
-                if (cargo == null)
-                    return _apiResponseService.NotFoundResponse("Cargo no encontrada");
+                if (rol == null)
+                    return _apiResponseService.NotFoundResponse("Rol no encontrada");
 
                 
-                var delete = await _cargo.DeleteDireccion(cargo.Id);
+                var delete = await _roles.DeleteDireccion(rol.Id);
 
-                return _apiResponseService.OkResponse(message: "Cargo eliminada");
+                return _apiResponseService.OkResponse(message: "Rol eliminada");
             });     
         }
 

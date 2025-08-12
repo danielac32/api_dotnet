@@ -92,7 +92,13 @@ namespace backend_ont_2.features.user.controller.user
 
                 List<User> users = await _userService.getUserByFilter(null, null, status: status);
 
-                return _apiResponseService.OkResponse(data: users);
+                var res = new
+                {
+                    success = true,
+                    users
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(data: users);
             });
 
         }
