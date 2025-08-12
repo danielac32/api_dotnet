@@ -10,7 +10,8 @@ using backend_ont_2.seeder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
- 
+using backend_ont_2.DCR;
+using backend_ont_2.DCR.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,11 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ApiResponseService>();
 builder.Services.AddScoped<Seeder>();
+builder.Services.AddScoped<DireccionRepository>();
+builder.Services.AddScoped<CargoRepository>();
+builder.Services.AddScoped<RoleRepository>();
+builder.Services.AddScoped<DireccionCargoRolService>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
