@@ -35,9 +35,10 @@ namespace backend_ont_2.features.dcr.controller.Dir
 
                 var direccion = new Direccion(dto.name);
                 bool created = await _direccion.CreateDireccion(direccion);
-
+                
+                
                 return created
-                    ? _apiResponseService.OkResponse(null, "Dirección registrada exitosamente")
+                    ? Ok(new { success=true,message="Dirección registrada exitosamente"})
                     : _apiResponseService.BadRequestResponse("Error al registrar");
             });
         }

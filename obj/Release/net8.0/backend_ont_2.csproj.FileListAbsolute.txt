@@ -170,3 +170,14 @@
 /home/daniel/backend_ont_2/obj/Release/net8.0/backend_ont_2.pdb
 /home/daniel/backend_ont_2/obj/Release/net8.0/backend_ont_2.genruntimeconfig.cache
 /home/daniel/backend_ont_2/obj/Release/net8.0/ref/backend_ont_2.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/Oracle.ManagedDataAccess.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/System.Configuration.ConfigurationManager.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/System.Diagnostics.PerformanceCounter.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/System.DirectoryServices.Protocols.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/System.Security.Cryptography.Pkcs.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/System.Security.Cryptography.ProtectedData.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/runtimes/linux/lib/net8.0/System.DirectoryServices.Protocols.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/runtimes/osx/lib/net8.0/System.DirectoryServices.Protocols.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/runtimes/win/lib/net8.0/System.DirectoryServices.Protocols.dll
+/home/daniel/backend_ont_2/bin/Release/net8.0/runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll

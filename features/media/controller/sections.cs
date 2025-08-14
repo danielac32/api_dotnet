@@ -21,7 +21,9 @@ namespace backend_ont_2.features.media.controller.sections
         public async Task<IActionResult> List()
         {
 
-            return _apiResponseService.OkResponse(new { sections= AppStrings.Sections });
+
+            return Ok(new { sections = AppStrings.Sections });
+            //return _apiResponseService.OkResponse(new { sections= AppStrings.Sections });
 
         }
     }

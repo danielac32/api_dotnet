@@ -48,7 +48,13 @@ namespace backend_ont_2.features.dcr.controller.Cargos
             {
                 List<Cargo> cargos = await _cargo.GetAllCargos();
 
-                return _apiResponseService.OkResponse(data: cargos);
+                //return _apiResponseService.OkResponse(data: cargos);
+                var response = new
+                {
+                    succes = true,
+                    cargos
+                };
+                return Ok(response);
             });
         }
         [HttpGet("{id}")]

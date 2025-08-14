@@ -8,7 +8,7 @@ using System.Text;
 namespace backend_ont_2.features.media.controller.resumen
 {
     [ApiController]
-    [Route("resumen")]
+    [Route("media/resumen")]
     public class ResumenController : ControllerBase
     {
         private readonly ApiResponseService _apiResponseService;
@@ -43,40 +43,62 @@ namespace backend_ont_2.features.media.controller.resumen
         // 🔹 POST: /api/resumen/upload
         // Sube una imagen en Base64 al resumen
         // ===================================================
+
         [HttpPost("upload")]
-        public async Task<IActionResult> Upload([FromBody] UploadFileDto dto)
+        public async Task<IActionResult> Upload([FromBody] FileUploadRequest request)
         {
-            return await _apiResponseService.Execute(async () =>
+            try
             {
-                if (string.IsNullOrWhiteSpace(dto?.Filename) || string.IsNullOrWhiteSpace(dto.Content))
-                    return _apiResponseService.BadRequestResponse("Datos de archivo inválidos");
+                // Validaciones básicas
+                if (request?.File == null)
+                {
+                    return BadRequest(new { success = false, message = "Datos de archivo no proporcionados" });
+                }
 
-                var resumenDir = GetResumenPath();
-                Directory.CreateDirectory(resumenDir); // Asegurar que exista
+                if (string.IsNullOrWhiteSpace(request.File.Filename))
+                {
+                    return BadRequest(new { success = false, message = "Nombre de archivo no proporcionado" });
+                }
 
-                byte[] bytes;
+                if (string.IsNullOrWhiteSpace(request.File.Content))
+                {
+                    return BadRequest(new { success = false, message = "Contenido Base64 no proporcionado" });
+                }
+
+                // Decodificar Base64
+                byte[] fileBytes;
                 try
                 {
-                    bytes = Convert.FromBase64String(dto.Content);
+                    fileBytes = Convert.FromBase64String(request.File.Content);
                 }
                 catch (FormatException)
                 {
-                    return _apiResponseService.BadRequestResponse("Contenido Base64 inválido");
+                    return BadRequest(new { success = false, message = "Formato Base64 inválido" });
                 }
 
-                var ext = Path.GetExtension(dto.Filename).ToLowerInvariant();
-                var filename = $"img_{DateTime.Now:yyyyMMddHHmmssfff}{ext}";
-                var filePath = Path.Combine(resumenDir, filename);
+                // Crear directorio si no existe
+                var uploadsDir = GetResumenPath();
+                Directory.CreateDirectory(uploadsDir);
 
-                await System.IO.File.WriteAllBytesAsync(filePath, bytes);
+                // Generar nombre único
+                var fileExt = Path.GetExtension(request.File.Filename);
+                var uniqueFileName = $"{Guid.NewGuid()}{fileExt}";
+                var filePath = Path.Combine(uploadsDir, uniqueFileName);
 
-                var imageUrl = $"/api/resumen/image?name={filename}";
-                return _apiResponseService.OkResponse(new
+                // Guardar archivo
+                await System.IO.File.WriteAllBytesAsync(filePath, fileBytes);
+
+                // Retornar respuesta exitosa
+                return Ok(new 
                 {
-                    status = "success",
-                    path = imageUrl
-                }, "Imagen subida correctamente");
-            });
+                    success = true,
+                    path = $"{filePath}/{uniqueFileName}",
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"Error interno: {ex.Message}" });
+            }
         }
 
         // ===================================================
@@ -98,13 +120,14 @@ namespace backend_ont_2.features.media.controller.resumen
                     .Select(f => Path.GetFileName(f))
                     .ToList();
 
-                return _apiResponseService.OkResponse(new
+                var response = new
                 {
                     success = true,
                     count = files.Count,
                     list = files,
                     timestamp = DateTime.UtcNow.ToString("o")
-                });
+                };
+                return Ok(response);
             });
         }
 
@@ -112,7 +135,7 @@ namespace backend_ont_2.features.media.controller.resumen
         // 🔹 GET: /api/resumen/image?name=img_123.jpg
         // Sirve una imagen por nombre
         // ===================================================
-        [HttpGet("image")]
+        [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -143,7 +166,7 @@ namespace backend_ont_2.features.media.controller.resumen
         // 🔹 DELETE: /api/resumen/remove?name=img_123.jpg
         // Elimina una imagen del resumen
         // ===================================================
-        [HttpDelete("remove")]
+        [HttpDelete]
         public async Task<IActionResult> Remove([FromQuery] string name)
         {
             return await _apiResponseService.Execute(async () =>
@@ -160,7 +183,12 @@ namespace backend_ont_2.features.media.controller.resumen
                 try
                 {
                     System.IO.File.Delete(filePath);
-                    return _apiResponseService.OkResponse(null, "Imagen eliminada correctamente");
+                    var response = new
+                    {
+                        success = true,
+                        message = "Imagen eliminada correctamente"
+                    };
+                    return Ok(response);
                 }
                 catch (Exception ex)
                 {

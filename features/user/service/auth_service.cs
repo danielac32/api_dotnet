@@ -40,7 +40,7 @@ namespace backend_ont_2.features.user.service.auth
                 Department = createDto.Department,
                 Position = createDto.Position,
                 ProfileImage = createDto.ProfileImage,
-                IsActive = createDto.IsActive ?? false //true
+                IsActive = true//createDto.IsActive ?? false //true
             };
 
             var userId = await _userService.CreateUserWithPermissionsAsync(user);

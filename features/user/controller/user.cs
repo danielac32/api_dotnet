@@ -48,8 +48,13 @@ namespace backend_ont_2.features.user.controller.user
                     return _apiResponseService.BadRequestResponse("Datos de entrada inválidos");
 
                 List<User> users = await _userService.getUserByFilter(null, null, null);
-
-                return _apiResponseService.OkResponse(data: users);
+                var res = new
+                {
+                    success = true,
+                    users
+                };
+                return Ok(res);
+               // return _apiResponseService.OkResponse(data: users);
             });
 
 
@@ -67,7 +72,13 @@ namespace backend_ont_2.features.user.controller.user
 
                 List<User> users = await _userService.getUserByFilter(null, null, null);
 
-                return _apiResponseService.OkResponse(data: users);
+                var res = new
+                {
+                    success = true,
+                    users
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(data: users);
             });
         }
 
@@ -118,7 +129,14 @@ namespace backend_ont_2.features.user.controller.user
 
                 if (user == null)
                     return _apiResponseService.NotFoundResponse("Usuario no encontrado");
-                return _apiResponseService.OkResponse(data: user);
+
+                var res = new
+                {
+                    success = true,
+                    users=user
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(data: user);
             });
         }
 
@@ -152,7 +170,13 @@ namespace backend_ont_2.features.user.controller.user
 
                var updatedUser = await _userService.UpdateUserAsync(user);
 
-               return _apiResponseService.OkResponse(data: updatedUser);
+               //return _apiResponseService.OkResponse(data: updatedUser);
+               var res = new
+                {
+                    success = true,
+                    users= updatedUser
+                };
+                return Ok(res);
            });
         }
 
@@ -173,7 +197,13 @@ namespace backend_ont_2.features.user.controller.user
 
 
                var delete = _userService.DeleteUserAsync(user.Id);
-               return _apiResponseService.OkResponse(message: "Usuario eliminado");
+               var res = new
+                {
+                    success = true,
+                    message = "Usuario eliminado"
+                };
+                return Ok(res);
+              // return _apiResponseService.OkResponse(message: "Usuario eliminado");
            });
         }
         /***********************************************************************************************************/
@@ -195,7 +225,14 @@ namespace backend_ont_2.features.user.controller.user
                     return _apiResponseService.NotFoundResponse("Usuario no encontrado");
 
                 var permissions = await _userService.GetPermissionsByUserAsync(user.Id);
-                return _apiResponseService.OkResponse(data: permissions);
+                //return _apiResponseService.OkResponse(data: permissions);
+
+                var res = new
+                {
+                    success = true,
+                    permissions
+                };
+                return Ok(res);
 
                 // var permissions = await _userService.GetPermissionsByUserAsync(id);
                 ///return _apiResponseService.OkResponse(permissions, "Permisos obtenidos correctamente");
@@ -236,7 +273,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!added)
                     return _apiResponseService.BadRequestResponse("No se pudo agregar el permiso");
 
-                return _apiResponseService.OkResponse(permission, "Permiso agregado correctamente");
+                var res = new
+                {
+                    success = true,
+                    message = "Permission added successfully"
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(permission, "Permiso agregado correctamente");
             });
         }
 
@@ -263,7 +306,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!removed)
                     return _apiResponseService.NotFoundResponse("Permiso no encontrado o no pertenece al usuario");
 
-                return _apiResponseService.OkResponse(null, "Permiso eliminado correctamente");
+                var res = new
+                {
+                    success = true,
+                    message = "Permission removed successfully"
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(null, "Permiso eliminado correctamente");
             });
         }
 
@@ -299,8 +348,15 @@ namespace backend_ont_2.features.user.controller.user
                  if (!updated)
                      return _apiResponseService.ConflictResponse("No se pudo actualizar el permiso");
 
+
+                var res = new
+                {
+                    success = true,
+                    message = "Permission updated successfully"
+                };
+                return Ok(res);
                  // ✅ Devolver el permiso actualizado (no el DTO)
-                 return _apiResponseService.OkResponse(permission, "Permiso actualizado correctamente");
+                 //return _apiResponseService.OkResponse(permission, "Permiso actualizado correctamente");
              });
         }
         /***********************************************************************************************************/
@@ -321,7 +377,13 @@ namespace backend_ont_2.features.user.controller.user
                     return _apiResponseService.NotFoundResponse("Usuario no encontrado");
 
                 var organismos = await _userService.GetOrganismosByUserAsync(user.Id);
-                return _apiResponseService.OkResponse(organismos, "Organismos obtenidos correctamente");
+                var res = new
+                {
+                    success = true,
+                    organismos 
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(organismos, "Organismos obtenidos correctamente");
             });
         }
         /***********************************************************************************************************/
@@ -355,7 +417,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!added)
                     return _apiResponseService.BadRequestResponse("No se pudo agregar el organismo");
 
-                return _apiResponseService.OkResponse(organismo, "Organismo creado correctamente");
+                var res = new
+                {
+                    success = true,
+                    message = "Organismo creado correctamente" 
+                };
+                return Ok(res);
+                //return _apiResponseService.OkResponse(organismo, "Organismo creado correctamente");
             });
         }
         /***********************************************************************************************************/
@@ -381,7 +449,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!removed)
                     return _apiResponseService.NotFoundResponse("Organismo no encontrado o no pertenece al usuario");
 
-                return _apiResponseService.OkResponse(null, "Organismo eliminado correctamente");
+                //return _apiResponseService.OkResponse(null, "Organismo eliminado correctamente");
+                var res = new
+                {
+                    success = true,
+                    message = "Organismo eliminado correctamente" 
+                };
+                return Ok(res);
             });
         }
         /***********************************************************************************************************/
@@ -402,7 +476,13 @@ namespace backend_ont_2.features.user.controller.user
                     return _apiResponseService.NotFoundResponse("Usuario no encontrado");
 
                 var resumenes = await _userService.GetResumenesByUserAsync(user.Id);
-                return _apiResponseService.OkResponse(resumenes, "Resúmenes obtenidos correctamente");
+                //return _apiResponseService.OkResponse(resumenes, "Resúmenes obtenidos correctamente");
+                var res = new
+                {
+                    success = true,
+                    resumenes
+                };
+                return Ok(res);
             });
         }
 
@@ -435,7 +515,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!added)
                     return _apiResponseService.BadRequestResponse("No se pudo crear el resumen");
 
-                return _apiResponseService.OkResponse(resumen, "Resumen creado correctamente");
+                //return _apiResponseService.OkResponse(resumen, "Resumen creado correctamente");
+                var res = new
+                {
+                    success = true,
+                    message="Resumen creado correctamente"
+                };
+                return Ok(res);
             });
         }
 
@@ -461,7 +547,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!removed)
                     return _apiResponseService.NotFoundResponse("Resumen no encontrado o no pertenece al usuario");
 
-                return _apiResponseService.OkResponse(null, "Resumen eliminado correctamente");
+                //return _apiResponseService.OkResponse(null, "Resumen eliminado correctamente");
+                 var res = new
+                {
+                    success = true,
+                    message="Resumen eliminado correctamente"
+                };
+                return Ok(res);
             });
         }
         /***********************************************************************************************************/
@@ -482,7 +574,13 @@ namespace backend_ont_2.features.user.controller.user
                     return _apiResponseService.NotFoundResponse("Usuario no encontrado");
 
                 var noticias = await _userService.GetNoticiasByUserAsync(user.Id);
-                return _apiResponseService.OkResponse(noticias, "Noticias obtenidas correctamente");
+                //return _apiResponseService.OkResponse(noticias, "Noticias obtenidas correctamente");
+                var res = new
+                {
+                    success = true,
+                    noticias
+                };
+                return Ok(res);
             });
         }
 
@@ -516,7 +614,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!added)
                     return _apiResponseService.BadRequestResponse("No se pudo crear la noticia");
 
-                return _apiResponseService.OkResponse(noticia, "Noticia creada correctamente");
+                //return _apiResponseService.OkResponse(noticia, "Noticia creada correctamente");
+                var res = new
+                {
+                    success = true,
+                    message="Noticia creada correctamente"
+                };
+                return Ok(res);
             });
         }
 
@@ -542,7 +646,13 @@ namespace backend_ont_2.features.user.controller.user
                 if (!removed)
                     return _apiResponseService.NotFoundResponse("Noticia no encontrada o no pertenece al usuario");
 
-                return _apiResponseService.OkResponse(null, "Noticia eliminada correctamente");
+                //return _apiResponseService.OkResponse(null, "Noticia eliminada correctamente");
+                var res = new
+                {
+                    success = true,
+                    message="Noticia eliminada correctamente"
+                };
+                return Ok(res);
             });
         }
         /***********************************************************************************************************/

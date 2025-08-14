@@ -37,7 +37,7 @@ namespace backend_ont_2.features.dcr.controller.Roles
                 bool created = await _roles.CreateRole(rol);
 
                 return created
-                    ? _apiResponseService.OkResponse(null, "Rol registrado exitosamente")
+                    ? Ok(new { success=true,message="Rol registrado exitosamente"})//_apiResponseService.OkResponse(null, "Rol registrado exitosamente")
                     : _apiResponseService.BadRequestResponse("Error al registrar");
             });
         }
@@ -48,7 +48,13 @@ namespace backend_ont_2.features.dcr.controller.Roles
             {
                 List<Role> roles = await _roles.GetAllRoles();
 
-                return _apiResponseService.OkResponse(data: roles);
+                //return _apiResponseService.OkResponse(data: roles);
+                var response = new
+                {
+                    succes = true,
+                    roles
+                };
+                return Ok(response);
             });
         }
         [HttpGet("{id}")]
