@@ -1,4 +1,4 @@
-SELECT  P.ANHO AñO, 
+SELECT  P.ANHO ANHO, 
 	          	P.ORGA_ID ORGANISMO, 
        		  	P.PAGO_ID ORDEN, 
        		  	DECODE(PI.AUTORIZADO_ID, NULL, PI.CTA_BANC_BENEF, PI.CTA_BANC_AUTORI) CUENTA, 
@@ -27,6 +27,7 @@ WHERE P.PAGO_ID  = PI.PAGO_ID
   AND P.TIPG_ID IN (1,9,10) 
   AND P.RAZON_ID_FIN IN (0,1,2,5) 
   AND P.ANHO >= 2018 
+  AND TO_DATE(SP.FECHA_MODIF,'DD/MM/RRRR') BETWEEN TO_DATE(:PAR_DESDE,'DD/MM/RRRR') AND TO_DATE(:PAR_HASTA,'DD/MM/RRRR')
   AND Sp.segui_id = (SELECT MAX(segui_id) 
                       FROM seguimiento_pago B 
                      WHERE Sp.pago_id = b.pago_id 
@@ -34,7 +35,7 @@ WHERE P.PAGO_ID  = PI.PAGO_ID
                        AND Sp.orga_id = b.orga_id 
                        AND Sp.tipg_id = b.tipg_id) 
 UNION 
-SELECT 	 P.ANHO AñO, 
+SELECT 	 P.ANHO ANHO, 
        	 P.ORGA_ID ORGANISMO, 
        	 P.PAGO_ID ORDEN, 
 		 DECODE(PI.AUTORIZADO_ID, NULL, PI.CTA_BANC_BENEF, PI.CTA_BANC_AUTORI) CUENTA, 
@@ -63,6 +64,7 @@ WHERE P.PAGO_ID  = PI.PAGO_ID
   AND P.TIPG_ID IN (1,9,10) 
   AND P.RAZON_ID_FIN IN (0,1,2,5) 
   AND P.ANHO >= 2018 
+  AND TO_DATE(SP.FECHA_MODIF,'DD/MM/RRRR') BETWEEN TO_DATE(:PAR_DESDE,'DD/MM/RRRR') AND TO_DATE(:PAR_HASTA,'DD/MM/RRRR')  
   AND Sp.segui_id = (SELECT MAX(segui_id) 
                       FROM seguimiento_pago B 
                      WHERE Sp.pago_id = b.pago_id 

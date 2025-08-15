@@ -16,11 +16,11 @@ namespace backend_ont_2.OracleDbProject
 
         public OracleDb(IConfiguration configuration)
         {
-            _readOnlyConnectionString = configuration["Oracle:User1:ConnectionString"]
-                ?? throw new InvalidOperationException("Falta la cadena de conexión Oracle:User1:ConnectionString");
+            _readOnlyConnectionString = configuration["Oracle:User1:ConnectionString"];
+            //?? Console.WriteLine("Falta la cadena de conexión Oracle:User1:ConnectionString"); //throw new InvalidOperationException("Falta la cadena de conexión Oracle:User1:ConnectionString");
 
-            _writeConnectionString = configuration["Oracle:User2:ConnectionString"]
-                ?? throw new InvalidOperationException("Falta la cadena de conexión Oracle:User2:ConnectionString");
+            _writeConnectionString = configuration["Oracle:User2:ConnectionString"];
+                //?? Console.WriteLine("Falta la cadena de conexión Oracle:User2:ConnectionString"); //throw new InvalidOperationException("Falta la cadena de conexión Oracle:User2:ConnectionString");
 
             Console.WriteLine($"{_readOnlyConnectionString}  {_writeConnectionString}");
         }

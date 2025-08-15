@@ -30,6 +30,7 @@ namespace backend_ont_2.test_connection.controller
         //[Authorize]
         public async Task<IActionResult> checkConnection()
         {
+            bool connectionStatus = false;
             try
             {
                 _oracleDb.ConnectAsReadOnly();//Connect("10.79.6.247:1521/SIGEPROD.oncop.gob.ve", "Consulta", "pumyra1584");
@@ -41,16 +42,18 @@ namespace backend_ont_2.test_connection.controller
                         Console.WriteLine($"{kv.Key}: {kv.Value}");
                     }
                 }
+                connectionStatus = true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
+                connectionStatus = false;
             }
             finally
             {
                 _oracleDb.Close();
             }
-            return Ok(new {ok="ok"});
+            return Ok(new {status=connectionStatus});
         }
 
 

@@ -13,7 +13,7 @@ using System.Text;
 using backend_ont_2.DCR;
 using backend_ont_2.DCR.Services;
 using backend_ont_2.OracleDbProject;
-
+using backend_ont_2.Middleware;
 // ================================
 // Parsear argumentos con formato: -clave valor
 // ================================
@@ -173,7 +173,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("AllowAll");
-
+//app.UseGlobalExceptionHandler();
 app.UseAuthentication(); // ← Antes de UseAuthorization
 app.UseAuthorization();
 if (app.Environment.IsDevelopment())
