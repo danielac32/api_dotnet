@@ -332,10 +332,12 @@ namespace backend_ont_2.features.user.controller.user
                      return _apiResponseService.BadRequestResponse("ID inválido");
 
                  // Buscar el permiso
-                 var permission = await _userService.GetPermissionById(id);
+                 var permission = await _userService.GetPermissionByUserAndSection(id,dto.Section);
                  if (permission == null)
                      return _apiResponseService.NotFoundResponse("Permiso no encontrado");
 
+
+                 Console.WriteLine($"{id} {dto.Section} {dto.CanCreate.Value} {dto.CanEdit.Value} {dto.CanDelete.Value} {dto.CanPublish.Value} ");
                  // Actualizar solo los campos enviados
                  if (dto.Section != null) permission.Section = dto.Section;
                  if (dto.CanCreate.HasValue) permission.CanCreate = dto.CanCreate.Value;

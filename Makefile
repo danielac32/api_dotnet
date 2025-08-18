@@ -41,13 +41,13 @@ publish:
 run:
 	@echo "▶️  Ejecutando la aplicación..."
 	#dotnet run  "10.79.6.247:1521/SIGEPROD.oncop.gob.ve" "Consulta" "pumyra1584" "http://localhost:8085" #--project $(PROJECT_FILE) --no-build
-	dotnet run \
-			-dns "10.79.6.247:1521/SIGEPROD.oncop.gob.ve" \
-			-url "http://localhost:5288" \
-			-user1 "Consulta" \
-			-pass1 "pumyra1584" \
-			-user2 "USR_INGREFIS" \
-			-pass2 "turgamar9648"
+	dotnet run  #\
+			#-dns "10.79.6.247:1521/SIGEPROD.oncop.gob.ve" \
+			#-url "http://localhost:5288" \
+			#-user1 "Consulta" \
+			#-pass1 "pumyra1584" \
+			#-user2 "USR_INGREFIS" \
+			#-pass2 "turgamar9648"
 clean:
 	@echo "🧹 Limpiando..."
 	dotnet clean
@@ -83,7 +83,7 @@ deletedb:
 		rm app.db
 
 migrate:
-	dotnet ef migrations add InitialCreate
+	dotnet ef migrations add InitialCreate 
 	dotnet ef database update
 
 test:

@@ -158,7 +158,39 @@ namespace backend_ont_2.features.user.repositories
             return true;
         }
 
-        public async Task<bool> UpdatePermissionAsync(Permission permission)
+
+
+
+
+        public async Task<Permission?> GetPermissionByUserAndSection(int userId, string section)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(section))
+                {
+                    Console.WriteLine("❌ La sección no puede ser nula o vacía.");
+                    return null;
+                }
+
+                var permission = await _context.Permissions
+                    .FirstOrDefaultAsync(p => p.UserId == userId && p.Section == section);
+
+                if (permission == null)
+                {
+                    Console.WriteLine($"⚠️ No se encontró permiso para el UserId={userId} en la sección '{section}'.");
+                }
+
+                return permission;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error al buscar el permiso: {ex.Message}");
+                return null;
+            }
+        }
+
+        
+         public async Task<bool> UpdatePermissionAsync(Permission permission)
         {
             try
             {
@@ -178,8 +210,9 @@ namespace backend_ont_2.features.user.repositories
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error al actualizar Permission: {ex.Message}");
                 return false;
             }
         }

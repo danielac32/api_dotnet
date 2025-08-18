@@ -61,7 +61,10 @@ namespace backend_ont_2.features.user.service
         public async Task<List<Permission>> GetPermissionsByUserAsync(int userId) =>
             await _userRepository.GetPermissionsByUserAsync(userId);
 
-
+        public async Task<Permission?> GetPermissionByUserAndSection(int userId, string section)
+        {
+            return await _userRepository.GetPermissionByUserAndSection(userId,section);
+        }
         public async Task<bool> UpdatePermissionAsync(Permission permission)
         {
             return await _userRepository.UpdatePermissionAsync(permission);
