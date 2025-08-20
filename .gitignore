@@ -1,0 +1,139 @@
+###############################
+# Archivos y carpetas generadas por compilación
+###############################
+/bin/
+/obj/
+/publish/
+/out/
+artifacts/
+
+###############################
+# Ejecutables y bibliotecas compiladas
+###############################
+*.exe
+*.dll
+*.pdb
+*.dll.config
+*.exe.config
+*[Tt]ested*.dll
+*[Tt]est*.dll
+*.nuget.targets
+
+###############################
+# Logs y archivos temporales
+###############################
+*.log
+*.tmp
+*~/
+.DS_Store
+Thumbs.db
+
+###############################
+# Entornos locales y configuración IDE
+###############################
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.vcxproj.filters
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Rider
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# Archivos de bloqueo
+[Ll]ock/
+*.db-shm
+*.db-wal
+
+###############################
+# Configuración sensible (NO subir)
+###############################
+# Archivos de configuración con credenciales
+appsettings.Development.json
+appsettings.Production.json
+secrets.json
+*.pfx
+*.p12
+*.key
+*.cert
+
+# Aunque appsettings.json SÍ se sube, los específicos por entorno NO
+# Asegúrate de que tu appsettings.json tenga valores por defecto sin contraseñas
+
+###############################
+# Docker (opcional, si no usas contenedores)
+###############################
+# docker-compose.override.yml
+# .dockerignore
+
+###############################
+# Pruebas
+###############################
+TestResults/
+testresults.xml
+testresults.trx
+_TestUpload/
+_Test/
+*.VisualState.xml
+
+###############################
+# NuGet
+###############################
+packages/
+*.nupkg
+!nuget.exe
+*.targets
+*.props
+
+# Archivos temporales de NuGet
+.projectUrl.xml
+
+###############################
+# MSBuild
+###############################
+!**/package/
+!**/*.nuspec
+
+###############################
+# EditorConfig
+###############################
+*.editorconfig
+
+###############################
+# macOS
+###############################
+.DS_Store?
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.supported
+.MetadataPatch
+# Mobile iOS
+.AppleDB
+.AppleDesktop
+apdisk
