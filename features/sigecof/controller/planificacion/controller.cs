@@ -54,7 +54,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
                var result =await  _oracleDb.ExecuteQuery(sql);
                 _oracleDb.Close();
                 return Ok(result);*/
-                string sql = SqlFileLoader.LoadFile("ORDENES_PAGADAS.sql", fecha.desde, fecha.hasta);
+                string sql = SqlFileLoader.LoadFile("PAGADAS_PLANIFICACION2.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
             });
@@ -70,7 +70,23 @@ namespace backend_ont_2.sigecof.planificacion.controller
                 var result = await _oracleDb.ExecuteQuery(sql);
                 _oracleDb.Close();
                 return Ok(result);*/
-                 string sql = SqlFileLoader.LoadFile("ORDENES_PAGADAS.sql", fecha.desde, fecha.hasta);
+                 string sql = SqlFileLoader.LoadFile("PAGADAS_PLANIFICACION2.sql", fecha.desde, fecha.hasta);
+                var result = await _oracleDb.QueryReadOnly(sql);
+                return Ok(result);
+            });
+        }
+
+        [HttpPost("pagadas_resumen")]
+        public async Task<IActionResult> pagadas_resumen([FromQuery] FechaRangoDto fecha)
+        {
+            return await _apiResponseService.Execute(async () =>
+            {
+                /* _oracleDb.Connect("10.79.6.247:1521/SIGEPROD.oncop.gob.ve", "Consulta", "pumyra1584");
+                string sql = SqlFileLoader.LoadFile("ORDENES_PAGADAS.sql", fecha.desde, fecha.hasta);
+                var result = await _oracleDb.ExecuteQuery(sql);
+                _oracleDb.Close();
+                return Ok(result);*/
+                 string sql = SqlFileLoader.LoadFile("PAGADAS_RESUMEN.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
             });

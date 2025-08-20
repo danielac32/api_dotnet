@@ -1,0 +1,4 @@
+/home/daniel/backend_ont_2/publish/appsettings.Development.json
+/home/daniel/backend_ont_2/publish/appsettings.json
+/home/daniel/backend_ont_2/publish/backend_ont_2.pdb
+/home/daniel/backend_ont_2/publish/backend_ont_2

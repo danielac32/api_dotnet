@@ -32,11 +32,10 @@ publish:
 	-r $(RUNTIME) \
 	--self-contained true \
 	-p:PublishSingleFile=true \
-	-p:PublishTrimmed=true \
+	-p:PublishTrimmed=false \
 	-p:IncludeNativeLibrariesForSelfExtract=true \
-	-o $(PUBLISH_DIR) \
-	--no-build
-	@echo "✅ Publicado en: $(PUBLISH_DIR)/$(PROJECT_NAME)"
+	-p:ShowLinkerSizeComparison=true \
+	-o $(PUBLISH_DIR) 
 
 run:
 	@echo "▶️  Ejecutando la aplicación..."

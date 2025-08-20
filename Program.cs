@@ -137,7 +137,7 @@ var app = builder.Build();
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
-
+/*
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -147,8 +147,9 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/error");
-}
-
+}*/
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.MapControllers();
 
