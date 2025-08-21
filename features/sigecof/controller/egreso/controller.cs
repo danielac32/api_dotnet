@@ -28,12 +28,13 @@ namespace backend_ont_2.sigecof.egreso.controller
 
         // GET: /user/get  → sin auth
         [HttpPost("pendientes")]
+        [Authorize]
         public async Task<IActionResult> pendientes([FromQuery] FechaRangoDto fecha)
         {
 
             return await _apiResponseService.Execute(async () =>
             {
-               
+
                 string sql = SqlFileLoader.LoadFile("pendientes.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
@@ -41,23 +42,25 @@ namespace backend_ont_2.sigecof.egreso.controller
         }
 
         [HttpPost("pagadas")]
+        [Authorize]
         public async Task<IActionResult> pagadas([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
             {
                 string sql = SqlFileLoader.LoadFile("pagadas.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
-                 return Ok(result);
-               
+                return Ok(result);
+
             });
         }
 
         [HttpPost("pagadas-retenciones")]
+        [Authorize]
         public async Task<IActionResult> pagadas_retenciones([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
             {
-               
+
                 string sql = SqlFileLoader.LoadFile("pagadas_retenciones.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
@@ -65,23 +68,25 @@ namespace backend_ont_2.sigecof.egreso.controller
         }
 
         [HttpPost("retenciones-partidas")]
+        [Authorize]
         public async Task<IActionResult> retenciones_partidas([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
             {
-                
+
                 string sql = SqlFileLoader.LoadFile("retenciones_partidas.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
             });
         }
-        
+
         [HttpPost("detalles-pendientes")]
+        [Authorize]
         public async Task<IActionResult> detalles_pendientes([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
             {
-                string sql = SqlFileLoader.LoadFile("DETALLE_ORDENES_PENDIENTES.sql",fecha.desde, fecha.hasta);
+                string sql = SqlFileLoader.LoadFile("DETALLE_ORDENES_PENDIENTES.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
 

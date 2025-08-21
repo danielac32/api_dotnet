@@ -34,14 +34,14 @@ namespace backend_ont_2.test_connection.controller
             try
             {
                 _oracleDb.ConnectAsReadOnly();//Connect("10.79.6.247:1521/SIGEPROD.oncop.gob.ve", "Consulta", "pumyra1584");
-                var result = await _oracleDb.ExecuteQuery("SELECT 'Prueba' AS msg, SYSDATE AS fecha FROM DUAL");
+                /*var result = await _oracleDb.ExecuteQuery("SELECT 'Prueba' AS msg, SYSDATE AS fecha FROM DUAL");
                 foreach (var row in result)
                 {
                     foreach (var kv in row)
                     {
                         Console.WriteLine($"{kv.Key}: {kv.Value}");
                     }
-                }
+                }*/
                 connectionStatus = true;
             }
             catch (Exception ex)

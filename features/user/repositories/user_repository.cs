@@ -159,9 +159,6 @@ namespace backend_ont_2.features.user.repositories
         }
 
 
-
-
-
         public async Task<Permission?> GetPermissionByUserAndSection(int userId, string section)
         {
             try
@@ -189,7 +186,7 @@ namespace backend_ont_2.features.user.repositories
             }
         }
 
-        
+
          public async Task<bool> UpdatePermissionAsync(Permission permission)
         {
             try

@@ -28,6 +28,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
 
         // GET: /user/get  → sin auth
         [HttpPost("transmisiones")]
+        [Authorize]
         public async Task<IActionResult> transmisiones([FromQuery] FechaRangoDto fecha)
         {
 
@@ -45,6 +46,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
         }
 
         [HttpPost("pagadas2")]
+        [Authorize]
         public async Task<IActionResult> pagadas2([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -61,6 +63,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
         }
 
         [HttpPost("pagadas_partidas")]
+        [Authorize]
         public async Task<IActionResult> pagadas_partidas([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -70,13 +73,14 @@ namespace backend_ont_2.sigecof.planificacion.controller
                 var result = await _oracleDb.ExecuteQuery(sql);
                 _oracleDb.Close();
                 return Ok(result);*/
-                 string sql = SqlFileLoader.LoadFile("PAGADAS_PLANIFICACION2.sql", fecha.desde, fecha.hasta);
+                string sql = SqlFileLoader.LoadFile("PAGADAS_PLANIFICACION2.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
             });
         }
 
         [HttpPost("pagadas_resumen")]
+        [Authorize]
         public async Task<IActionResult> pagadas_resumen([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -86,13 +90,14 @@ namespace backend_ont_2.sigecof.planificacion.controller
                 var result = await _oracleDb.ExecuteQuery(sql);
                 _oracleDb.Close();
                 return Ok(result);*/
-                 string sql = SqlFileLoader.LoadFile("PAGADAS_RESUMEN.sql", fecha.desde, fecha.hasta);
+                string sql = SqlFileLoader.LoadFile("PAGADAS_RESUMEN.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
             });
         }
 
         [HttpPost("ordenes-pendientes")]
+        [Authorize]
         public async Task<IActionResult> ordenes_pendientes([FromQuery] FechaRangoDto fecha)
         {
             //Console.WriteLine($"desde: {desde}, hasta: {hasta}"); // Verifica valores
@@ -111,8 +116,9 @@ namespace backend_ont_2.sigecof.planificacion.controller
                 return Ok(result);
             });
         }
-        
+
         [HttpPost("ordenes-divisas-bolivares")]
+        [Authorize]
         public async Task<IActionResult> ordenes_divisas_bolivares([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -122,7 +128,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
                 var result = await _oracleDb.ExecuteQuery(sql);
                 _oracleDb.Close();
                 return Ok(result);*/
-                string sql = SqlFileLoader.LoadFile("Dolares_a_Bolivares.sql",fecha.desde, fecha.hasta);
+                string sql = SqlFileLoader.LoadFile("Dolares_a_Bolivares.sql", fecha.desde, fecha.hasta);
                 var result = await _oracleDb.QueryReadOnly(sql);
                 return Ok(result);
             });

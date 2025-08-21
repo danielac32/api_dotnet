@@ -84,7 +84,7 @@ namespace backend_ont_2.features.user.controller.user
 
         // GET: /user/filter?status=active
         [HttpGet("filter")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> ListFilter([FromQuery] string? status/*, [FromQuery] string? role*/)
         {
             // Simula que usas los query params
@@ -116,7 +116,7 @@ namespace backend_ont_2.features.user.controller.user
 
         // GET: /user/{id}
         [HttpGet("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetById([FromRoute] string id)
         {
             return await _apiResponseService.Execute(async () =>
@@ -142,7 +142,7 @@ namespace backend_ont_2.features.user.controller.user
 
         // PATCH: /user/{id}
         [HttpPatch("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> UpdateById(
             [FromRoute] string id,
             [FromBody] UserUpdateDto updateDto) // Puedes usar dynamic o un DTO real
@@ -182,7 +182,7 @@ namespace backend_ont_2.features.user.controller.user
 
         // DELETE: /user/{id}
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> DeleteById([FromRoute] string id)
         {
             return await _apiResponseService.Execute(async () =>
@@ -212,6 +212,7 @@ namespace backend_ont_2.features.user.controller.user
         // Obtiene todos los permisos de un usuario
         // ===================================================
         [HttpGet("{id}/permissions")]
+        [Authorize]
         public async Task<IActionResult> GetPermissionsByUser([FromRoute] string id)
         {
             return await _apiResponseService.Execute(async () =>
@@ -244,6 +245,7 @@ namespace backend_ont_2.features.user.controller.user
         // Agrega un nuevo permiso al usuario
         // ===================================================
         [HttpPost("{id}/permissions")]
+        [Authorize]
         public async Task<IActionResult> AddPermissionToUser(
             [FromRoute] string id,
             [FromBody] PermissionDto dto)
@@ -288,6 +290,7 @@ namespace backend_ont_2.features.user.controller.user
         // Elimina un permiso específico del usuario
         // ===================================================
         [HttpDelete("{id}/permissions/{permissionId}")]
+        [Authorize]
         public async Task<IActionResult> RemovePermissionFromUser(
             [FromRoute] string id,
             [FromRoute] int permissionId)
@@ -321,6 +324,7 @@ namespace backend_ont_2.features.user.controller.user
         // Actualiza un permiso existente
         // ===================================================
         [HttpPatch("{id}/permissions")]
+        [Authorize]
         public async Task<IActionResult> UpdatePermissionFromUser(
             [FromRoute] int id,
             [FromBody] UpdatePermissionDto dto)
@@ -332,7 +336,7 @@ namespace backend_ont_2.features.user.controller.user
                      return _apiResponseService.BadRequestResponse("ID inválido");
 
                  // Buscar el permiso
-                 var permission = await _userService.GetPermissionByUserAndSection(id,dto.Section);
+                 var permission = await _userService.GetPermissionByUserAndSection(id, dto.Section);
                  if (permission == null)
                      return _apiResponseService.NotFoundResponse("Permiso no encontrado");
 
@@ -351,12 +355,12 @@ namespace backend_ont_2.features.user.controller.user
                      return _apiResponseService.ConflictResponse("No se pudo actualizar el permiso");
 
 
-                var res = new
-                {
-                    success = true,
-                    message = "Permission updated successfully"
-                };
-                return Ok(res);
+                 var res = new
+                 {
+                     success = true,
+                     message = "Permission updated successfully"
+                 };
+                 return Ok(res);
                  // ✅ Devolver el permiso actualizado (no el DTO)
                  //return _apiResponseService.OkResponse(permission, "Permiso actualizado correctamente");
              });
@@ -367,6 +371,7 @@ namespace backend_ont_2.features.user.controller.user
         // Obtiene todos los organismos creados por un usuario
         // ===================================================
         [HttpGet("{id}/organismos")]
+        [Authorize]
         public async Task<IActionResult> GetOrganismosByUser([FromRoute] string id)
         {
             return await _apiResponseService.Execute(async () =>
@@ -382,7 +387,7 @@ namespace backend_ont_2.features.user.controller.user
                 var res = new
                 {
                     success = true,
-                    organismos 
+                    organismos
                 };
                 return Ok(res);
                 //return _apiResponseService.OkResponse(organismos, "Organismos obtenidos correctamente");
@@ -394,6 +399,7 @@ namespace backend_ont_2.features.user.controller.user
         // Crea un nuevo organismo asociado al usuario
         // ===================================================
         [HttpPost("{id}/organismos")]
+        [Authorize]
         public async Task<IActionResult> AddOrganismoToUser(
             [FromRoute] string id,
             [FromBody] OrganismoGobernacionCreateDto dto)
@@ -422,7 +428,7 @@ namespace backend_ont_2.features.user.controller.user
                 var res = new
                 {
                     success = true,
-                    message = "Organismo creado correctamente" 
+                    message = "Organismo creado correctamente"
                 };
                 return Ok(res);
                 //return _apiResponseService.OkResponse(organismo, "Organismo creado correctamente");
@@ -434,6 +440,7 @@ namespace backend_ont_2.features.user.controller.user
         // Elimina un organismo específico (solo si pertenece al usuario)
         // ===================================================
         [HttpDelete("{id}/organismos/{organismoId}")]
+        [Authorize]
         public async Task<IActionResult> RemoveOrganismoFromUser(
             [FromRoute] string id,
             [FromRoute] int organismoId)
@@ -455,7 +462,7 @@ namespace backend_ont_2.features.user.controller.user
                 var res = new
                 {
                     success = true,
-                    message = "Organismo eliminado correctamente" 
+                    message = "Organismo eliminado correctamente"
                 };
                 return Ok(res);
             });
@@ -466,6 +473,7 @@ namespace backend_ont_2.features.user.controller.user
         // Obtiene todos los resúmenes de gestión del usuario
         // ===================================================
         [HttpGet("{id}/resumenes")]
+        [Authorize]
         public async Task<IActionResult> GetResumenesByUser([FromRoute] string id)
         {
             return await _apiResponseService.Execute(async () =>
@@ -493,6 +501,7 @@ namespace backend_ont_2.features.user.controller.user
         // Crea un nuevo resumen de gestión para el usuario
         // ===================================================
         [HttpPost("{id}/resumenes")]
+        [Authorize]
         public async Task<IActionResult> AddResumenToUser(
             [FromRoute] string id,
             [FromBody] ResumenGestionCreateDto dto)
@@ -521,7 +530,7 @@ namespace backend_ont_2.features.user.controller.user
                 var res = new
                 {
                     success = true,
-                    message="Resumen creado correctamente"
+                    message = "Resumen creado correctamente"
                 };
                 return Ok(res);
             });
@@ -532,6 +541,7 @@ namespace backend_ont_2.features.user.controller.user
         // Elimina un resumen de gestión (solo si pertenece al usuario)
         // ===================================================
         [HttpDelete("{id}/resumenes/{resumenId}")]
+        [Authorize]
         public async Task<IActionResult> RemoveResumenFromUser(
             [FromRoute] string id,
             [FromRoute] int resumenId)
@@ -550,10 +560,10 @@ namespace backend_ont_2.features.user.controller.user
                     return _apiResponseService.NotFoundResponse("Resumen no encontrado o no pertenece al usuario");
 
                 //return _apiResponseService.OkResponse(null, "Resumen eliminado correctamente");
-                 var res = new
+                var res = new
                 {
                     success = true,
-                    message="Resumen eliminado correctamente"
+                    message = "Resumen eliminado correctamente"
                 };
                 return Ok(res);
             });
@@ -564,6 +574,7 @@ namespace backend_ont_2.features.user.controller.user
         // Obtiene todas las noticias del usuario
         // ===================================================
         [HttpGet("{id}/noticias")]
+        [Authorize]
         public async Task<IActionResult> GetNoticiasByUser([FromRoute] string id)
         {
             return await _apiResponseService.Execute(async () =>
@@ -591,6 +602,7 @@ namespace backend_ont_2.features.user.controller.user
         // Crea una nueva noticia para el usuario
         // ===================================================
         [HttpPost("{id}/noticias")]
+        [Authorize]
         public async Task<IActionResult> AddNoticiaToUser(
             [FromRoute] string id,
             [FromBody] NoticiaCreateDto dto)
@@ -620,7 +632,7 @@ namespace backend_ont_2.features.user.controller.user
                 var res = new
                 {
                     success = true,
-                    message="Noticia creada correctamente"
+                    message = "Noticia creada correctamente"
                 };
                 return Ok(res);
             });
@@ -631,6 +643,7 @@ namespace backend_ont_2.features.user.controller.user
         // Elimina una noticia (solo si pertenece al usuario)
         // ===================================================
         [HttpDelete("{id}/noticias/{noticiaId}")]
+        [Authorize]
         public async Task<IActionResult> RemoveNoticiaFromUser(
             [FromRoute] string id,
             [FromRoute] int noticiaId)
@@ -652,7 +665,7 @@ namespace backend_ont_2.features.user.controller.user
                 var res = new
                 {
                     success = true,
-                    message="Noticia eliminada correctamente"
+                    message = "Noticia eliminada correctamente"
                 };
                 return Ok(res);
             });
