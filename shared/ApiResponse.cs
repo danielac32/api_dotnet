@@ -14,7 +14,6 @@ namespace backend_ont_2.shared.apiResponse
             }
             catch (Exception ex)
             {
-                // Log del error (deberías implementar un logger aquí)
                 Console.WriteLine($"Error: {ex.Message}");
 
                 return new ObjectResult(new

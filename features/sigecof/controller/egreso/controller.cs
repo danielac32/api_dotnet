@@ -28,7 +28,7 @@ namespace backend_ont_2.sigecof.egreso.controller
 
         // GET: /user/get  → sin auth
         [HttpPost("pendientes")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> pendientes([FromQuery] FechaRangoDto fecha)
         {
 
@@ -42,7 +42,7 @@ namespace backend_ont_2.sigecof.egreso.controller
         }
 
         [HttpPost("pagadas")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> pagadas([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -55,7 +55,7 @@ namespace backend_ont_2.sigecof.egreso.controller
         }
 
         [HttpPost("pagadas-retenciones")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> pagadas_retenciones([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -68,7 +68,7 @@ namespace backend_ont_2.sigecof.egreso.controller
         }
 
         [HttpPost("retenciones-partidas")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> retenciones_partidas([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -81,7 +81,7 @@ namespace backend_ont_2.sigecof.egreso.controller
         }
 
         [HttpPost("detalles-pendientes")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> detalles_pendientes([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>

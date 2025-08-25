@@ -28,7 +28,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
 
         // GET: /user/get  → sin auth
         [HttpPost("transmisiones")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> transmisiones([FromQuery] FechaRangoDto fecha)
         {
 
@@ -46,7 +46,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
         }
 
         [HttpPost("pagadas2")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> pagadas2([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -63,7 +63,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
         }
 
         [HttpPost("pagadas_partidas")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> pagadas_partidas([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -80,7 +80,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
         }
 
         [HttpPost("pagadas_resumen")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> pagadas_resumen([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
@@ -97,7 +97,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
         }
 
         [HttpPost("ordenes-pendientes")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> ordenes_pendientes([FromQuery] FechaRangoDto fecha)
         {
             //Console.WriteLine($"desde: {desde}, hasta: {hasta}"); // Verifica valores
@@ -118,7 +118,7 @@ namespace backend_ont_2.sigecof.planificacion.controller
         }
 
         [HttpPost("ordenes-divisas-bolivares")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> ordenes_divisas_bolivares([FromQuery] FechaRangoDto fecha)
         {
             return await _apiResponseService.Execute(async () =>
