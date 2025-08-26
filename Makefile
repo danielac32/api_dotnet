@@ -70,7 +70,7 @@ install:
 	dotnet --version
 	# Atajo: make → help
 
- 
+
 installdb:
 	dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
 	dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 7.0.10
@@ -87,7 +87,24 @@ migrate:
 
 test:
 	dotnet test
- 
+
+
+install:
+	dotnet add package AutoMapper #--version 15.0.1
+	dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection #--version 12.0.1
+	dotnet add package BCrypt.Net-Next #--version 4.0.3
+	dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer #--version 8.0.8
+	dotnet add package Microsoft.AspNetCore.OpenApi #--version 8.0.8
+	dotnet add package Microsoft.EntityFrameworkCore #--version 9.0.7
+	dotnet add package Microsoft.EntityFrameworkCore.Design #--version 9.0.7
+	dotnet add package Microsoft.EntityFrameworkCore.Sqlite #--version 9.0.7
+	dotnet add package Microsoft.NET.ILLink.Tasks #--version 8.0.18
+	dotnet add package Oracle.ManagedDataAccess.Core #--version 23.9.1
+	dotnet add package Swashbuckle.AspNetCore #--version 6.5.0
+	dotnet add package Swashbuckle.AspNetCore.Annotations #--version 9.0.3
+	dotnet add package System.IdentityModel.Tokens.Jwt #--version 8.13.0
+
+	
 all: help
 
 # Agrega los paquetes necesarios
