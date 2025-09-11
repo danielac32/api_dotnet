@@ -29,7 +29,7 @@ public class CuentaUnicaController : ControllerBase
         return await _apiResponseService.Execute(async () =>
         {
 
-            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica","COMPROBANTE_DE_RETENCION.sql", fecha.desde, fecha.hasta);
+            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica", "COMPROBANTE_DE_RETENCION.sql", fecha.desde, fecha.hasta);
             var result = await _oracleDb.QueryReadOnly(sql);
             return Ok(result);
         });
@@ -41,7 +41,7 @@ public class CuentaUnicaController : ControllerBase
         return await _apiResponseService.Execute(async () =>
         {
 
-            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica","PARAFISCALES_BANAVIH.sql", fecha.desde, fecha.hasta);
+            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica", "PARAFISCALES_BANAVIH.sql", fecha.desde, fecha.hasta);
             var result = await _oracleDb.QueryReadOnly(sql);
             return Ok(result);
         });
@@ -53,7 +53,7 @@ public class CuentaUnicaController : ControllerBase
         return await _apiResponseService.Execute(async () =>
         {
 
-            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica","PARAFISCALES_INCES.sql", fecha.desde, fecha.hasta);
+            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica", "PARAFISCALES_INCES.sql", fecha.desde, fecha.hasta);
             var result = await _oracleDb.QueryReadOnly(sql);
             return Ok(result);
         });
@@ -64,7 +64,7 @@ public class CuentaUnicaController : ControllerBase
         return await _apiResponseService.Execute(async () =>
         {
 
-            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica","PARAFISCALES_IVSS.sql", fecha.desde, fecha.hasta);
+            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica", "PARAFISCALES_IVSS.sql", fecha.desde, fecha.hasta);
             var result = await _oracleDb.QueryReadOnly(sql);
             return Ok(result);
         });
@@ -76,11 +76,23 @@ public class CuentaUnicaController : ControllerBase
         return await _apiResponseService.Execute(async () =>
         {
 
-            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica","RETENCIONES.sql", fecha.desde, fecha.hasta);
+            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica", "RETENCIONES.sql", fecha.desde, fecha.hasta);
             var result = await _oracleDb.QueryReadOnly(sql);
             return Ok(result);
         });
     }
 
+    [HttpPost("islr")]
+
+    public async Task<IActionResult> islr([FromQuery] FechaRangoDto fecha)
+    {
+        return await _apiResponseService.Execute(async () =>
+        {
+
+            string sql = SqlFileLoader.LoadFile("sql/CuentaUnica","ISLR.sql", fecha.desde, fecha.hasta);
+            var result = await _oracleDb.QueryReadOnly(sql);
+            return Ok(result);
+        });
+    }
 
 }
