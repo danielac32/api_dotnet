@@ -91,6 +91,7 @@ public class CuentaUnicaController : ControllerBase
 
             string sql = SqlFileLoader.LoadFile("sql/CuentaUnica","ISLR.sql", fecha.desde, fecha.hasta);
             var result = await _oracleDb.QueryReadOnly(sql);
+
             return Ok(result);
         });
     }
