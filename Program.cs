@@ -8,14 +8,19 @@ using backend_ont_2.seeder;
 using backend_ont_2.DCR;
 using backend_ont_2.DCR.Services;
 using backend_ont_2.OracleDbProject;
-using backend_ont_2.Middleware;
+//using backend_ont_2.Middleware;
+using backend_ont_2.Xmltxt.controller;
+using backend_ont_2.Xmltxt.Service;
+
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+//using Scalar.AspNetCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
+ 
 // ================================
 // 🔐 Cargar configuración desde appsettings.json
 // ================================
@@ -63,14 +68,24 @@ string connectionString1 = $"User Id={user1};Password={pass1};Data Source={dataS
 string connectionString2 = $"User Id={user2};Password={pass2};Data Source={dataSource};";
 
 // Inyectar conexiones en IConfiguration
-builder.Configuration.AddInMemoryCollection(new[]
+/*builder.Configuration.AddInMemoryCollection(new[]
 {
-    new KeyValuePair<string, string>("Oracle:User1:ConnectionString", connectionString1),
-    new KeyValuePair<string, string>("Oracle:User2:ConnectionString", connectionString2),
-    new KeyValuePair<string, string>("Oracle:DataSource", dataSource),
-    new KeyValuePair<string, string>("Oracle:User1", user1),
-    new KeyValuePair<string, string>("Oracle:User2", user2)
-});
+    new KeyValuePair<string, string?>("Oracle:User1:ConnectionString", connectionString1),
+    new KeyValuePair<string, string?>("Oracle:User2:ConnectionString", connectionString2),
+    new KeyValuePair<string, string?>("Oracle:DataSource", dataSource),
+    new KeyValuePair<string, string?>("Oracle:User1", user1),
+    new KeyValuePair<string, string?>("Oracle:User2", user2)
+});*/
+var inMemoryConfig = new Dictionary<string, string?>
+{
+    { "Oracle:User1:ConnectionString", connectionString1 },
+    { "Oracle:User2:ConnectionString", connectionString2 },
+    { "Oracle:DataSource", dataSource },
+    { "Oracle:User1", user1 },
+    { "Oracle:User2", user2 }
+};
+
+builder.Configuration.AddInMemoryCollection(inMemoryConfig);
 
 // ================================
 // 🛠️ Configurar servicios
@@ -118,7 +133,8 @@ builder.Services.AddScoped<CargoRepository>();
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<DireccionCargoRolService>();
 builder.Services.AddScoped<OracleDb>();
-
+builder.Services.AddScoped<XmltxtController>();
+builder.Services.AddScoped<XmlService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -150,6 +166,9 @@ else
 }*/
 app.UseSwagger();
 app.UseSwaggerUI();
+
+ 
+
 app.UseHttpsRedirection();
 app.MapControllers();
 

@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using backend_ont_2.data;
 using backend_ont_2.shared.apiResponse;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+ 
 using System.Net.Mime;
 using backend_ont_2.OracleDbProject;
 using backend_ont_2.sigecof.sql.parser;
-using backend_ont_2.shared.apiResponse;
-
+ 
 namespace backend_ont_2.sigecof.planificacion.controller
 {
     [ApiController]
