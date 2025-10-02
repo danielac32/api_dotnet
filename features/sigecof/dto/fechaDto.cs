@@ -7,3 +7,11 @@ public class FechaRangoDto
     [Required(ErrorMessage = "El parámetro 'hasta' es obligatorio.")]
     public string? hasta { get; set; }
 }
+
+
+public class BusquedaPendiente
+{
+     
+    public string? orden { get; set; }
+    public string? rif { get; set; }
+}

@@ -12,9 +12,13 @@ namespace backend_ont_2.shared.apiResponse
             {
                 return await action();
             }
+            catch (ArgumentException ex)
+            {
+               return new BadRequestObjectResult(new { success = false, message = ex.Message });
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                //Console.WriteLine($"Error: {ex.Message}");
 
                 return new ObjectResult(new
                 {

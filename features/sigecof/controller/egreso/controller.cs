@@ -91,5 +91,39 @@ namespace backend_ont_2.sigecof.egreso.controller
 
             });
         }
+
+        [HttpGet("consult-pendiente")]
+        //[Authorize]
+        public async Task<IActionResult> consult_pendientes([FromQuery] BusquedaPendiente request)
+        {
+            return await _apiResponseService.Execute(async () =>
+            {
+                // Validar que al menos un parámetro esté presente
+                if (string.IsNullOrEmpty(request.orden) && string.IsNullOrEmpty(request.rif))
+                {
+                    return BadRequest("Debe proporcionar al menos un número de orden o RIF para la búsqueda");
+                }
+
+                string sql = SqlFileLoader.LoadFileOrdenRif("consult_pendiente.sql", request.orden, request.rif);
+                Console.WriteLine(sql);
+                var result = await _oracleDb.QueryReadOnly(sql);
+                return Ok(result);
+
+            });
+        }
+
+         [HttpGet("consult")]
+        //[Authorize]
+        public async Task<IActionResult> consult()
+        {
+            return await _apiResponseService.Execute(async () =>
+            {
+                 
+                string sql = SqlFileLoader.LoadFile("consult.sql");
+                var result = await _oracleDb.QueryReadOnly(sql);
+                return Ok(result);
+
+            });
+        }
     }
 }

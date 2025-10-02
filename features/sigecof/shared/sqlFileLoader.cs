@@ -16,7 +16,9 @@ namespace backend_ont_2.sigecof.sql.parser
         /// <param name="desde">Fecha desde</param>
         /// <param name="hasta">Fecha hasta</param>
         /// <returns>Contenido del SQL con fechas reemplazadas</returns>
-
+        /// 
+        /// 
+        /// 
         public static string LoadFile(string filename)
         {
             if (string.IsNullOrWhiteSpace(filename))
@@ -26,8 +28,7 @@ namespace backend_ont_2.sigecof.sql.parser
             string content = File.ReadAllText(path);
             return content;
         }
-
-
+        
         public static string LoadFile(string filename, DateTime desde, DateTime hasta)
         {
             if (string.IsNullOrWhiteSpace(filename))
@@ -58,7 +59,7 @@ namespace backend_ont_2.sigecof.sql.parser
             return content;
         }
 
-        public static string LoadFile(string dir,string filename, DateTime desde, DateTime hasta)
+        public static string LoadFile(string dir, string filename, DateTime desde, DateTime hasta)
         {
             if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentException("El nombre del archivo no puede estar vacío", nameof(filename));
@@ -107,7 +108,7 @@ namespace backend_ont_2.sigecof.sql.parser
             if (!DateTime.TryParseExact(strHasta, "dd/MM/yyyy", culture, DateTimeStyles.None, out DateTime hasta))
                 throw new ArgumentException("Formato de fecha hasta inválido. Use dd/MM/yyyy.", nameof(strHasta));
 
-            return LoadFile(dir,filename, desde, hasta);
+            return LoadFile(dir, filename, desde, hasta);
         }
         public static string LoadFile(string filename, string strDesde, string strHasta)
         {
@@ -120,5 +121,28 @@ namespace backend_ont_2.sigecof.sql.parser
 
             return LoadFile(filename, desde, hasta);
         }
+
+        
+        public static string LoadFileOrdenRif(string filename, string orden, string rif)
+        {
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentException("El nombre del archivo no puede estar vacío", nameof(filename));
+
+            // Ruta completa del archivo
+            string path = Path.Combine(SqlDirectory, filename);
+
+            if (!File.Exists(path))
+                throw new IOException($"El archivo {path} no existe");
+
+            string content = File.ReadAllText(path);
+
+            // Reemplazar parámetros
+            content = content
+                .Replace(":orden", string.IsNullOrEmpty(orden) ? "NULL" : $"'{orden}'")
+                .Replace(":rif", string.IsNullOrEmpty(rif) ? "NULL" : $"'{rif}'");
+
+            return content;
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-------------*****ORDENES PENDIENTES POR PARTIDAS *****-------
+------------*****ORDENES PENDIENTES*****-------
 ---**********************************************************************--------
 SELECT ANHO,ORGANISMO,FUENTE,PARTIDA,FONDO,ORDEN,ESTADO,CUENTA,BENEFICIARIO,FECHA_MODIFICACION,OBSERVACION,SUM(MONTO) MONTO  
 FROM (
